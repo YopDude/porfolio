@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Molnar — Web Developer for Hire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14162E;
+    --ink-soft:#1D2043;
+    --coral:#FF6B5B;
+    --violet:#7C5CFF;
+    --lime:#C6FF5E;
+    --cloud:#F7F6FB;
+    --mist:#9691B4;
+    --radius:18px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--cloud);
+    font-family:'Sora',sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.1;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    font-weight:600;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  :focus-visible{
+    outline:3px solid var(--lime);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(20,22,46,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(247,246,251,0.08);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+  }
+  .logo span{color:var(--coral);}
+  .nav-links{
+    display:flex;
+    gap:36px;
+    font-size:0.95rem;
+    font-weight:500;
+  }
+  .nav-links a{
+    color:var(--mist);
+    transition:color 0.2s ease;
+  }
+  .nav-links a:hover{color:var(--cloud);}
+  .nav-cta{
+    background:var(--coral);
+    color:var(--ink);
+    padding:10px 22px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:0.9rem;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(255,107,91,0.35);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:96px 0 80px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-220px;
+    right:-160px;
+    width:560px;
+    height:560px;
+    background:radial-gradient(circle at 30% 30%, var(--violet), transparent 65%);
+    opacity:0.45;
+    filter:blur(10px);
+    animation:drift 14s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes drift{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-30px,30px);}
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+    position:relative;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--lime);
+    font-size:0.75rem;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--lime);
+    box-shadow:0 0 12px var(--lime);
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    font-weight:700;
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--coral);
+  }
+  .hero h1 .u2{color:var(--violet);}
+  .hero p.lede{
+    color:var(--mist);
+    font-size:1.1rem;
+    max-width:46ch;
+    margin-bottom:34px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--coral);
+    color:var(--ink);
+    padding:15px 28px;
+    border-radius:999px;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 28px rgba(255,107,91,0.35);}
+  .btn-ghost{
+    border:1.5px solid rgba(247,246,251,0.25);
+    padding:14px 26px;
+    border-radius:999px;
+    font-weight:600;
+    color:var(--cloud);
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--lime); background:rgba(198,255,94,0.06);}
+
+  /* ---------- CHARACTER CARD (signature element) ---------- */
+  .card{
+    background:linear-gradient(165deg, var(--ink-soft), #16183a);
+    border:1px solid rgba(247,246,251,0.09);
+    border-radius:24px;
+    padding:28px;
+    position:relative;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+  .card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:24px;
+    padding:1px;
+    background:linear-gradient(135deg, var(--violet), transparent 40%, var(--coral) 90%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
+  }
+  .card-tag{
+    font-size:0.65rem;
+    color:var(--lime);
+  }
+  .card-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.3rem;
+    font-weight:700;
+    margin-top:4px;
+  }
+  .card-class{
+    color:var(--mist);
+    font-size:0.85rem;
+    margin-top:2px;
+  }
+  .avatar{
+    width:64px;height:64px;
+    border-radius:16px;
+    padding:2px;
+    background:conic-gradient(from 200deg, var(--coral), var(--violet), var(--lime), var(--coral));
+    flex-shrink:0;
+  }
+  .avatar img{
+    width:100%;
+    height:100%;
+    border-radius:14px;
+    object-fit:cover;
+    display:block;
+  }
+  .stat{
+    margin-bottom:14px;
+  }
+  .stat-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.72rem;
+    color:var(--mist);
+    margin-bottom:6px;
+  }
+  .stat-label b{color:var(--cloud); font-weight:600;}
+  .stat-track{
+    height:8px;
+    border-radius:999px;
+    background:rgba(247,246,251,0.08);
+    overflow:hidden;
+  }
+  .stat-fill{
+    height:100%;
+    border-radius:999px;
+    width:0;
+    transition:width 1.1s cubic-bezier(.2,.8,.2,1);
+  }
+  .stat-fill.c1{background:linear-gradient(90deg, var(--coral), #ff9a8d);}
+  .stat-fill.c2{background:linear-gradient(90deg, var(--violet), #a996ff);}
+  .stat-fill.c3{background:linear-gradient(90deg, var(--lime), #e4ffb0);}
+  .card-footer{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px dashed rgba(247,246,251,0.12);
+  }
+  .badge{
+    font-size:0.68rem;
+    padding:5px 10px;
+    border-radius:999px;
+    background:rgba(247,246,251,0.06);
+    color:var(--mist);
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:88px 0;}
+  .section-head{
+    max-width:640px;
+    margin-bottom:52px;
+  }
+  .section-head .eyebrow{color:var(--violet);}
+  .section-head .eyebrow::before{background:var(--violet); box-shadow:0 0 12px var(--violet);}
+  .section-head h2{
+    font-size:clamp(1.8rem,3.4vw,2.5rem);
+    margin-bottom:14px;
+  }
+  .section-head p{color:var(--mist); font-size:1.05rem;}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .service{
+    background:var(--ink-soft);
+    border:1px solid rgba(247,246,251,0.08);
+    border-radius:var(--radius);
+    padding:28px 24px;
+    transition:transform 0.25s ease, border-color 0.25s ease;
+  }
+  .service:hover{transform:translateY(-6px); border-color:var(--coral);}
+  .service .icon{
+    width:60px;height:60px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+    background:rgba(0,0,0,0.15);
+    overflow:hidden;
+  }
+  .service .icon img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 0.3s ease;
+  }
+  .service:hover .icon img{transform:scale(1.08);}
+  .service h3{font-size:1.1rem; margin-bottom:8px;}
+  .service p{color:var(--mist); font-size:0.92rem;}
+
+  /* ---------- PROJECTS ---------- */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .project{
+    background:var(--ink-soft);
+    border:1px solid rgba(247,246,251,0.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .project:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+  .project-banner{
+    height:170px;
+    position:relative;
+    overflow:hidden;
+    background:var(--ink);
+  }
+  .project-banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top center;
+    display:block;
+    transition:transform 0.4s ease;
+  }
+  .project:hover .project-banner img{transform:scale(1.04);}
+  .status-chip{
+    position:absolute;
+    top:12px; right:12px;
+    font-size:0.62rem;
+    background:rgba(20,22,46,0.55);
+    color:var(--cloud);
+    padding:4px 9px;
+    border-radius:999px;
+  }
+  .project-body{
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    flex:1;
+  }
+  .project-body h3{font-size:1.1rem;}
+  .project-body p{color:var(--mist); font-size:0.92rem; flex:1;}
+  .tags{display:flex; gap:8px; flex-wrap:wrap;}
+  .tag{
+    font-size:0.68rem;
+    background:rgba(247,246,251,0.06);
+    color:var(--mist);
+    padding:4px 9px;
+    border-radius:999px;
+  }
+  .project-links{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .project-link{
+    font-size:0.88rem;
+    font-weight:600;
+    color:var(--coral);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .project-link:hover{text-decoration:underline;}
+  .project-link.secondary{color:var(--mist); font-weight:500;}
+
+  /* ---------- PROCESS ---------- */
+  .process{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+  }
+  .process-step{
+    background:var(--ink-soft);
+    border:1px solid rgba(247,246,251,0.08);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .process-step .step-tag{
+    color:var(--lime);
+    font-size:0.68rem;
+    margin-bottom:10px;
+    display:block;
+  }
+  .process-step h3{font-size:1rem; margin-bottom:8px;}
+  .process-step p{color:var(--mist); font-size:0.88rem;}
+
+  /* ---------- CTA / CONTACT ---------- */
+  .contact{
+    background:linear-gradient(150deg, var(--ink-soft), #1a1c40);
+    border-radius:28px;
+    padding:64px 48px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .contact::before{
+    content:"";
+    position:absolute;
+    bottom:-160px; left:-100px;
+    width:420px;height:420px;
+    background:radial-gradient(circle, var(--coral), transparent 65%);
+    opacity:0.28;
+  }
+  .contact h2{
+    font-size:clamp(1.8rem,3.6vw,2.6rem);
+    margin-bottom:16px;
+    position:relative;
+  }
+  .contact p{
+    color:var(--mist);
+    max-width:50ch;
+    margin:0 auto 32px;
+    position:relative;
+  }
+  .contact-actions{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    flex-wrap:wrap;
+    position:relative;
+  }
+
+  footer{
+    padding:40px 0;
+    border-top:1px solid rgba(247,246,251,0.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--mist);
+    font-size:0.85rem;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .projects-grid{grid-template-columns:repeat(2,1fr);}
+    .process{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    .services-grid{grid-template-columns:1fr;}
+    .projects-grid{grid-template-columns:1fr;}
+    .process{grid-template-columns:1fr;}
+    .contact{padding:48px 24px;}
+    nav{padding:16px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">david<span>.</span>molnar</div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="#contact">Start a project</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow mono">Available for freelance work</div>
+        <h1>I build websites for people with a <em>side hustle</em> and a <span class="u2">deadline</span>.</h1>
+        <p class="lede">Landing pages, online stores, and small tools for business owners and hobbyists who need a site that just works — no bloated agency process, no jargon.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">Get a quote →</a>
+          <a class="btn-ghost" href="#work">See past builds</a>
+        </div>
+      </div>
+
+      <div class="card" id="statcard">
+        <div class="card-top">
+          <div>
+            <div class="card-tag mono">Character sheet</div>
+            <div class="card-name">David Molnar</div>
+            <div class="card-class">Class: Web Developer</div>
+          </div>
+          <div class="avatar"><img src="images/profile.png" alt="David Molnar avatar"></div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label"><span>Front-end builds</span><b>92%</b></div>
+          <div class="stat-track"><div class="stat-fill c1" data-target="92"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label"><span>Full-stack &amp; APIs</span><b>78%</b></div>
+          <div class="stat-track"><div class="stat-fill c2" data-target="78"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label"><span>Turning weird ideas into real tools</span><b>95%</b></div>
+          <div class="stat-track"><div class="stat-fill c3" data-target="95"></div></div>
+        </div>
+
+        <div class="card-footer">
+          <span class="badge">HTML/CSS/JS</span>
+          <span class="badge">Node.js</span>
+          <span class="badge">Docker</span>
+          <span class="badge">E-commerce</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-head">
+      <div class="eyebrow mono">What I build</div>
+      <h2>Pick a starting point — we'll shape it to your project.</h2>
+      <p>Most clients fall into one of these. If yours doesn't, tell me about it anyway.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="icon"><img src="images/icon-tools.png" alt="Wrench and gear icon"></div>
+        <h3>Custom tools</h3>
+        <p>Small web apps and utilities built around one specific job you need done — calculators, converters, dashboards.</p>
+      </div>
+      <div class="service">
+        <div class="icon"><img src="images/icon-landing.png" alt="Rocket launch icon"></div>
+        <h3>Landing pages</h3>
+        <p>A fast, focused single page that explains what you offer and gets people to take action.</p>
+      </div>
+      <div class="service">
+        <div class="icon"><img src="images/icon-hobby.png" alt="Game controller icon"></div>
+        <h3>Hobby &amp; passion projects</h3>
+        <p>Fan sites, community tools, and just-for-fun builds — done with the same care as paid work.</p>
+      </div>
+      <div class="service">
+        <div class="icon"><img src="images/icon-business.png" alt="Storefront icon"></div>
+        <h3>Business websites</h3>
+        <p>A clean, trustworthy site for your business that's easy for you to update later on.</p>
+      </div>
+      <div class="service">
+        <div class="icon"><img src="images/icon-ecommerce.png" alt="Shopping cart icon"></div>
+        <h3>E-commerce</h3>
+        <p>Online stores set up to actually sell — product pages, checkout, and the boring-but-important stuff behind them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="work">
+    <div class="section-head">
+      <div class="eyebrow mono">Completed builds</div>
+      <h2>A few things I've shipped.</h2>
+      <p>Static sites, full-stack apps, and one built purely because it was fun.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project">
+        <div class="project-banner">
+          <img src="images/metals-banner.png" alt="Pella Metals live spot-price site showing gold, silver, platinum and palladium prices">
+          <span class="status-chip">Static site</span>
+        </div>
+        <div class="project-body">
+          <h3>Pella Metals</h3>
+          <p>A live spot-price site for precious metals, pulling in real-time exchange rates — the kind of clean, data-driven foundation a small business site starts from.</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+          <div class="project-links">
+            <a class="project-link" href="https://yopdude.github.io/metals/" target="_blank" rel="noopener">Visit site ↗</a>
+            <a class="project-link secondary" href="https://github.com/YopDude/metals" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-banner">
+          <img src="images/chat-banner.png" alt="Unified Chat Timeline app showing live chat messages from Twitch, YouTube and TikTok merged into one feed">
+          <span class="status-chip">Full-stack</span>
+        </div>
+        <div class="project-body">
+          <h3>Live Chat Hub</h3>
+          <p>A full-stack, Dockerized app that merges live chat from Twitch, YouTube and TikTok into one unified timeline — the kind of app-level work behind a custom tool or platform feature.</p>
+          <div class="tags"><span class="tag">Node.js</span><span class="tag">JavaScript</span><span class="tag">Docker</span></div>
+          <div class="project-links">
+            <a class="project-link" href="https://yopdude.github.io/live-chat-hub/?p=test" target="_blank" rel="noopener">Visit site ↗</a>
+            <a class="project-link secondary" href="https://github.com/YopDude/live-chat-hub" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-banner">
+          <img src="images/zelda-banner.png" alt="Zelda Hylian Translator tool converting English text into Hylian script from Breath of the Wild">
+          <span class="status-chip">Interactive tool</span>
+        </div>
+        <div class="project-body">
+          <h3>Hylian Translator</h3>
+          <p>An interactive tool that translates text into every Hylian script from The Legend of Zelda, with instant preview and image export — built purely out of love for the games.</p>
+          <div class="tags"><span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">HTML</span></div>
+          <div class="project-links">
+            <a class="project-link" href="https://zeldatranslator.com/" target="_blank" rel="noopener">Visit site ↗</a>
+            <a class="project-link secondary" href="https://github.com/YopDude/Hylian_Translator" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-head">
+      <div class="eyebrow mono">How it works</div>
+      <h2>A short, straightforward process.</h2>
+      <p>No lengthy discovery calls or 40-page proposals — just enough structure to keep the project moving.</p>
+    </div>
+    <div class="process">
+      <div class="process-step">
+        <span class="step-tag mono">Message</span>
+        <h3>Tell me what you need</h3>
+        <p>A quick message on Fiverr with what you're picturing, and any examples you like.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-tag mono">Scope</span>
+        <h3>We agree on scope</h3>
+        <p>You get a clear price and timeline before any work starts — no surprise costs.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-tag mono">Build</span>
+        <h3>I build, you check in</h3>
+        <p>You'll see progress along the way, not just a finished link at the end.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-tag mono">Launch</span>
+        <h3>Handoff &amp; launch</h3>
+        <p>Your site goes live, and you get a plain-English rundown of how to update it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact">
+      <h2>Got a project in mind?</h2>
+      <p>Whether it's a business site, an online store, or a weird little tool only you would think of — let's talk about it.</p>
+      <div class="contact-actions">
+        <a class="btn-primary" href="mailto:DaYopDude@proton.me">Email me →</a>
+        <a class="btn-ghost" href="https://www.fiverr.com/david_molnar97" target="_blank" rel="noopener">Message on Fiverr</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© 2026 David Molnar</span>
+  <span>Built with HTML, CSS &amp; a soft spot for all things retro</span>
+</footer>
+
+<script>
+  // Animate stat bars when the card scrolls into view
+  const fills = document.querySelectorAll('.stat-fill');
+  const card = document.getElementById('statcard');
+
+  const runFills = () => {
+    fills.forEach(f => {
+      f.style.width = f.getAttribute('data-target') + '%';
+    });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          runFills();
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    obs.observe(card);
+  } else {
+    runFills();
+  }
+</script>
+
+</body>
+</html>
